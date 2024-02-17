@@ -1,5 +1,5 @@
 import './App.css'
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Header from './components/Header';
 
 
@@ -10,8 +10,13 @@ function App() {
   const [screenWidth, setScreenWidth] = useState<ScreenWidthType>(window.innerWidth)
   const [darkMode, setDarkMode] = useState(false)
 
-  
-  console.log(darkMode)
+
+  const changeMode = () => {
+    document.documentElement.classList.toggle('dark')
+    setDarkMode(!darkMode)
+  }
+
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -26,17 +31,34 @@ function App() {
 
 
   return (
-    <section className='App relative w-full -z-20  flex flex-col items-center justify-center dark:bg-[#393A4B] dark:text-[#C8CBE7] md:h-screen'>
+    <section className='App flex justify-center h-screen dark:bg-[#25273D] dark:duration-300'>
+
+
 
       {screenWidth > 374
         ?
-        <img className='fixed top-0  -z-10' src="/assets/bg-desktop-img.png" alt="" />
-        : <img src="/assets/bg-mobile-img.jpg" alt="" />}
+        <div >
+          <img className='' src="/assets/bg-desktop-img.png" alt="" />
+        </div>
 
-     
+        :
+        <div>
+          <img className='' src="/assets/bg-mobile-img.jpg" alt="" />
+        </div>
+
+      }
+{/* <div className='h-[70vh] bg-green-500'></div> */}
+      <Header screenWidth={screenWidth} changeMode={changeMode} darkMode={darkMode}/>
+
+      
 
 
-      <Header screenWidth={screenWidth} setDarkMode={setDarkMode} darkMode={darkMode}/>
+
+
+
+
+
+
 
 
     </section>

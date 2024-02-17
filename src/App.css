@@ -5,6 +5,13 @@
   font-family: "Josefin Sans", sans-serif;
 }
 
-.App {
-  background: #393A4B;
+body {
+  height: 100%;
+  width: 100%;
+  /* background: pink; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F2F2F2;
 }
+
