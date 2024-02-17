@@ -47,19 +47,8 @@ function App() {
         </div>
 
       }
-{/* <div className='h-[70vh] bg-green-500'></div> */}
+
       <Header screenWidth={screenWidth} changeMode={changeMode} darkMode={darkMode}/>
-
-      
-
-
-
-
-
-
-
-
-
 
     </section>
   )
