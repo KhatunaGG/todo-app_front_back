@@ -3,23 +3,6 @@ import { useEffect, useReducer, useState } from 'react';
 import { IInitialState, ScreenWidthType, ActionType } from './types';
 
 
-// type ScreenWidthType = number;
-
-// interface IInitialState {
-//   id: number;
-//   name: string;
-//   completed: boolean;
-// }
-
-// type ActionType =
-//   | { type: 'ADD_TASK'; payload: string }
-//   | { type: 'DELETE_TASK'; payload: number }
-//   | { type: 'EDIT_TASK'; payload: number }
-//   | { type: 'SHOW_ALL_TASKS'; payload: IInitialState[] }
-//   | { type: 'SHOW_ALL_ACTIVE'; payload: IInitialState[] }
-//   | { type: 'SHOW_ALL_COMPLETED'; payload: IInitialState[] }
-//   | { type: 'CLEAR_ALL_COMPLETED'; payload: IInitialState[] };
-
 const initialState: IInitialState[] = [];
 
 
@@ -52,13 +35,10 @@ function App() {
   const [darkMode, setDarkMode] = useState(false)
   const [todos, dispatch] = useReducer(reducer, initialState);
 
-  console.log(todos)
-
   const changeMode = () => {
     document.documentElement.classList.toggle('dark')
     setDarkMode(!darkMode)
   }
-
 
 
   useEffect(() => {
@@ -133,16 +113,18 @@ function App() {
                       type: "EDIT_TASK",
                       payload: item.id
                     })}
-                    className="w-5 h-5 rounded-full border border-[#E3E4F1] md:w-6 md:h-6 dark:border  dark:border-[#C8CBE7]"></div>
+                    className="w-[20px] h-[20px] rounded-full border border-[#E3E4F1] md:w-[24px] md:h-[24px] dark:border  dark:border-[#C8CBE7]"></div>
                 )}
-              <p className="text text-left ml-3 w-full text-xs font-normal text-[#494C6B] md:text-lg md:tracking-[-0.25px]
+              <p style={{ textDecoration: item.completed ? 'line-through' : 'none' }}
+                className="text text-left ml-3 w-full text-xs font-normal text-[#494C6B] md:text-lg md:tracking-[-0.25px]
               dark:text-[#C8CBE7]">{item.name}</p>
               <img
                 onClick={() => dispatch({
                   type: 'DELETE_TASK',
                   payload: item.id
                 })}
-                src={screenWidth > 374 ? '/assets/del-desktop-icon.svg' : '/assets/del-mobile-icon.svg'} alt="" />
+                src={screenWidth > 374 ? '/assets/del-desktop-icon.svg' : '/assets/del-mobile-icon.svg'} alt=""
+                className='w-[18px] h-[18px]' />
             </div>
           ))}
 
@@ -182,7 +164,7 @@ function App() {
 
         {screenWidth < 375 && (
           <div className="footer-mobile w-full flex flex-row items-center justify-center gap-[19px] rounded-md shadow-lg
-                    border-b border-[#E3E4F1] px-4 py-4  bg-white dark:border-b dark:border-[#C8CBE7] dark:bg-[#393A4B] dark:duration-300 ">
+             border-b border-[#E3E4F1] px-4 py-4  bg-white dark:border-b dark:border-[#C8CBE7] dark:bg-[#393A4B] dark:duration-300 ">
             <button
               onClick={() => dispatch({
                 type: 'SHOW_ALL_TASKS',
