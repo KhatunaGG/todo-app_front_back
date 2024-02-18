@@ -33,25 +33,16 @@ const reducer = (state: IInitialState[], action: ActionType) => {
       completed: false
     }];
 
-    case 'DELETE_TASK': return state.filter((item) => item.id !== action.payload)
+    case 'DELETE_TASK': return state.filter((item) => item.id !== action.payload);
+    case "EDIT_TASK": return state.map((item) => {
+      if (item.id !== action.payload) return item
+      return { ...item, completed: !item.completed }
+    })
 
 
     default: return state
   }
 }
-
-// const AddTask = (e: React.KeyboardEvent<HTMLInputElement>) => {
-
-//     if (e.key === 'Enter') {
-//         dispatch({
-//             type: 'ADD_TASK',
-//             payload: e.target.value
-//         })
-//     }
-
-// }
-
-
 
 
 
@@ -132,14 +123,6 @@ function App() {
 
         <input
 
-          // onKeyDown={(e) => AddTask(e) }
-
-          // onKeyDown={(e) => dispatch({
-          //   type: 'ADD_TASK',
-          //   payload: e.currentTarget.value
-          // }) }
-
-
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
               dispatch({
@@ -161,10 +144,48 @@ function App() {
           {todos.map((item) => (
 
             <div key={item.id} className="item w-full flex flex-row items-center justify-between  border-b border-[#E3E4F1] py-4 px-5 md:py-[19px] dark:border-[#C8CBE7]">
-              <div className="w-5 h-5 rounded-full border border-[#E3E4F1] md:w-6 md:h-6 dark:border  dark:border-[#C8CBE7]"></div>
+              {/* <div
+                onClick={() => dispatch({
+                  type: "EDIT_TASK",
+                  payload: item.id
+                })}
+
+                className="w-5 h-5 rounded-full border border-[#E3E4F1] md:w-6 md:h-6 dark:border  dark:border-[#C8CBE7]"></div> */}
+
+
+
+              {item.completed
+                ? <img
+                  onClick={() => dispatch({
+                  type: "EDIT_TASK",
+                  payload: item.id
+                })}
+                  style={{ width: screenWidth > 374 ? '24px' : '20px', height: screenWidth > 374 ? '24px' : '20px', background: 'transparent' }}
+                  src={screenWidth > 374 ? '/assets/check-icon.png' : '/assets/check-icon.png'} alt="" />
+                : (
+                  <div
+                    onClick={() => dispatch({
+                  type: "EDIT_TASK",
+                  payload: item.id
+                })}
+                    className="w-5 h-5 rounded-full border border-[#E3E4F1] md:w-6 md:h-6 dark:border  dark:border-[#C8CBE7]"></div>
+                )}
+
+
+
+
+
+
               <p className="text text-left ml-3 w-full text-xs font-normal text-[#494C6B] md:text-lg md:tracking-[-0.25px]
               dark:text-[#C8CBE7]">{item.name}</p>
-              <img src={screenWidth > 374 ? '/assets/del-desktop-icon.svg' : '/assets/del-mobile-icon.svg'} alt="" />
+              <img
+                onClick={() => dispatch({
+                  type: 'DELETE_TASK',
+                  payload: item.id
+
+                })}
+
+                src={screenWidth > 374 ? '/assets/del-desktop-icon.svg' : '/assets/del-mobile-icon.svg'} alt="" />
             </div>
 
           ))}
