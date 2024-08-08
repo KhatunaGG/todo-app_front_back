@@ -2,7 +2,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:3003';
+const BASE_URL = 'https://todo-app-front-back.onrender.com';
 
 type ScreenWidthType = number;
 
